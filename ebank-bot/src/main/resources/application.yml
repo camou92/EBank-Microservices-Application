@@ -1,0 +1,54 @@
+#spring.application.name=ebank-bot
+#
+#spring.ai.openai.api-key=
+#spring.ai.openai.chat.options.model=gpt-4o
+#spring.cloud.discovery.enabled=true
+#spring.cloud.config.enabled=false
+#server.port=8058
+
+spring:
+  application:
+    name: ebank-bot
+  cloud:
+    discovery:
+      enabled: true
+    config:
+      enabled: false
+  ai:
+    mcp:
+      client:
+        streamable-http:
+          connections:
+            customer:
+              url: http://localhost:8056/mcp
+            e-bank:
+              url: http://localhost:8057/mcp
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      base-url: https://api.groq.com/openai
+      chat:
+        options:
+          model: llama-3.3-70b-versatile   # ou gemma2-9b-it, mixtral-8x7b-32768...
+          temperature: 0.7
+#    ollama:
+#      base-url: http://localhost:11434
+#      chat:
+#        model: qwen2.5
+#        options:
+#          system: >
+#            Tu es un assistant bancaire. Tu disposes d'outils pour gérer les clients.
+#            Utilise-les directement pour répondre aux questions.
+#            Ne montre jamais de code. Réponds toujours dans la langue de l'utilisateur.
+#          temperature: 0.7
+
+discord:
+  token: ${DISCORD_TOKEN}
+telegram:
+  token: ${TELEGRAM_TOKEN}
+server:
+  port: 8058
+
+eureka:
+  client:
+    jersey:
+      enabled: false
